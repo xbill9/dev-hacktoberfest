@@ -2,6 +2,8 @@
 
 Entry for the [Hacktoberfest Open-Source AI Challenge, Week 1: Touch Grass](https://dev.to/challenges/hacktoberfest-week1-2026-10-05).
 
+**Article:** [Touch Grass, Pack Your Docs: An Offline Coding Agent on a 4 GB Laptop GPU](https://dev.to/xbill/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-4lf1)
+
 **Touch grass, but pack your docs.** This repo takes a coding agent outdoors, away from the desk and
 off the network. Everything runs on a laptop: Gemma 4 E4B on a GTX 1650 Ti (4 GB), served by
 llama.cpp and driven by opencode. No API key, no network, and nothing leaves the machine.
