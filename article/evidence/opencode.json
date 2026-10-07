@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
+  "share": "disabled",
+  "permission": {
+    "edit": "allow",
+    "webfetch": "deny",
+    "bash": {
+      "*": "deny",
+      "python3 *": "allow",
+      "pytest *": "allow"
+    }
+  },
+  "model": "llamacpp/gemma-4-e4b",
+  "small_model": "llamacpp/gemma-4-e4b",
+  "provider": {
+    "llamacpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama.cpp (local, GTX 1650 Ti)",
+      "options": { "baseURL": "http://127.0.0.1:8080/v1" },
+      "models": {
+        "gemma-4-e4b": {
+          "name": "Gemma 4 E4B exact Q4_0 (local)",
+          "tool_call": true,
+          "limit": { "context": 32768, "output": 4096 }
+        },
+        "gemma-4-e2b-google": {
+          "name": "Gemma 4 E2B Google QAT GGUF (local baseline)",
+          "tool_call": true,
+          "limit": { "context": 32768, "output": 4096 }
+        },
+        "gemma-4-e2b": {
+          "name": "Gemma 4 E2B exact Q4_0 (local)",
+          "tool_call": true,
+          "limit": { "context": 32768, "output": 4096 }
+        }
+      }
+    }
+  }
+}

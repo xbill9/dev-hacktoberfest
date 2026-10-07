@@ -1,0 +1,73 @@
+# Derived from runs/ by derive_facts.py
+
+## Tool calls per agent run (tool, status): count
+agent-attach/gemma-4-e2b-attach-1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 4, ('edit', 'error'): 2}  edits 2, failed 2
+agent-attach/gemma-4-e2b-attach-2.jsonl: {('write', 'completed'): 3, ('bash', 'completed'): 3, ('edit', 'error'): 1, ('read', 'completed'): 1}  edits 1, failed 1
+agent-attach/gemma-4-e2b-attach-3.jsonl: {('write', 'completed'): 5, ('bash', 'completed'): 5, ('edit', 'completed'): 1, ('edit', 'error'): 1}  edits 2, failed 1
+agent-attach/gemma-4-e4b-attach-1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 1}  edits 0, failed 0
+agent-attach/gemma-4-e4b-attach-2.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 5, ('edit', 'completed'): 4, ('edit', 'error'): 3, ('read', 'completed'): 2}  edits 7, failed 3
+agent-attach/gemma-4-e4b-attach-3.jsonl: {('todowrite', 'completed'): 2, ('write', 'completed'): 2, ('read', 'completed'): 1, ('edit', 'completed'): 3, ('bash', 'completed'): 1}  edits 3, failed 0
+agent-attach2/gemma-4-e2b-attach2-1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 3, ('edit', 'error'): 4}  edits 4, failed 4
+agent-attach2/gemma-4-e2b-attach2-2.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 2, ('edit', 'completed'): 1}  edits 1, failed 0
+agent-attach2/gemma-4-e2b-attach2-3.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 3, ('edit', 'error'): 1, ('edit', 'completed'): 1}  edits 2, failed 1
+agent-attach2/gemma-4-e4b-attach2-1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 5, ('edit', 'completed'): 4, ('edit', 'error'): 2}  edits 6, failed 2
+agent-docs/gemma-4-e4b-docs-1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 7, ('read', 'completed'): 1, ('edit', 'completed'): 5}  edits 5, failed 0
+agent-rvb/gemma-4-e2b-google-rvb1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 1}  edits 0, failed 0
+agent-rvb/gemma-4-e2b-google-rvb2.jsonl: {('task', 'completed'): 1}  edits 0, failed 0
+agent-rvb/gemma-4-e2b-google-rvb3.jsonl: {('task', 'completed'): 1}  edits 0, failed 0
+agent-rvb/gemma-4-e2b-rvb1.jsonl: {('task', 'completed'): 1, ('bash', 'completed'): 3, ('read', 'completed'): 2, ('edit', 'error'): 1, ('write', 'completed'): 2, ('edit', 'completed'): 1}  edits 2, failed 1
+agent-rvb/gemma-4-e2b-rvb2.jsonl: {('task', 'completed'): 1}  edits 0, failed 0
+agent-rvb/gemma-4-e2b-rvb3.jsonl: {('write', 'completed'): 4, ('bash', 'completed'): 2, ('edit', 'error'): 7}  edits 7, failed 7
+agent-rvb/gemma-4-e4b-1.jsonl: {('write', 'completed'): 3, ('bash', 'completed'): 4, ('read', 'completed'): 6, ('edit', 'completed'): 1, ('edit', 'error'): 10}  edits 11, failed 10
+agent-tuned/gemma-4-e4b-tuned-1.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 4, ('read', 'completed'): 2, ('edit', 'completed'): 3, ('edit', 'error'): 2}  edits 5, failed 2
+agent-tuned/gemma-4-e4b-tuned-2.jsonl: {('write', 'completed'): 2, ('bash', 'completed'): 5, ('edit', 'completed'): 4, ('read', 'completed'): 2, ('edit', 'error'): 1}  edits 5, failed 1
+
+## Decode speed per run, from llama-server 'eval time' lines (all requests in the run)
+server-gemma-4-e2b-google-rvb1.log: 61.2 tok/s over 5 requests
+server-gemma-4-e2b-google-rvb2.log: 61.5 tok/s over 11 requests
+server-gemma-4-e2b-google-rvb3.log: 61.8 tok/s over 7 requests
+server-gemma-4-e2b-rvb1.log: 64.3 tok/s over 27 requests
+server-gemma-4-e2b-rvb2.log: 66.7 tok/s over 13 requests
+server-gemma-4-e2b-rvb3.log: 65.0 tok/s over 14 requests
+E2B google: mean of 3 runs = 61.5 tok/s
+E2B repack: mean of 3 runs = 65.3 tok/s
+
+## opencode prompt size, cold server, request 'Reply with exactly: pong' (prompt-size-server.log)
+default profile, Claude skills imported: 11434 tokens, cold prefill 44.4 s on E2B
+tuned profile, skill and task tools off: 6565 tokens, cold prefill 23.3 s on E2B
+
+## Grader, re-run now on every saved agent output (grade.py: London, New York, Sydney within 10 min)
+agent-attach/gemma-4-e2b-attach-1: GRADER ERROR IndentationError: unexpected indent (daylight.py, line 20)
+agent-attach/gemma-4-e2b-attach-2: GRADER ERROR IndentationError: unexpected indent (daylight.py, line 20)
+agent-attach/gemma-4-e2b-attach-3: GRADER ERROR IndentationError: unexpected indent (daylight.py, line 18)
+agent-attach/gemma-4-e4b-attach-1: GRADER 3/3
+agent-attach/gemma-4-e4b-attach-2: GRADER 3/3
+agent-attach/gemma-4-e4b-attach-3: GRADER 3/3
+agent-attach2/gemma-4-e2b-attach2-1: GRADER 1/3
+agent-attach2/gemma-4-e2b-attach2-2: GRADER 2/3
+agent-attach2/gemma-4-e2b-attach2-3: GRADER ERROR AttributeError: module 'calendar' has no attribute 'dayofyear'
+agent-attach2/gemma-4-e4b-attach2-1: GRADER 3/3
+agent-docs/gemma-4-e4b-docs-1: GRADER ERROR AttributeError: 'NoneType' object has no attribute 'hour'
+agent-rvb/gemma-4-e2b-google-rvb1: GRADER ERROR NotImplementedError: Only specific test case implemented due to complexity of NOAA equation without external libraries.
+agent-rvb/gemma-4-e2b-google-rvb2: GRADER 0/3
+agent-rvb/gemma-4-e2b-google-rvb3: GRADER 0/3
+agent-rvb/gemma-4-e2b-rvb1: GRADER 0/3
+agent-rvb/gemma-4-e2b-rvb2: GRADER 0/3
+agent-rvb/gemma-4-e2b-rvb3: GRADER 0/3
+agent-rvb/gemma-4-e4b-1: GRADER 0/3
+agent-tuned/gemma-4-e4b-tuned-1: GRADER ERROR ValueError: hour must be in 0..23, not -10
+agent-tuned/gemma-4-e4b-tuned-2: GRADER 0/3
+
+## Counts quoted in the article, computed from the re-grade and tool-call data above
+E4B, thinking + tuned profile + doc attached: 4 of 4 passed
+E4B, thinking + tuned profile + doc in the repo: 0 of 1 passed
+E4B, thinking + tuned profile: 0 of 2 passed
+E4B, default settings: 0 of 1 passed
+E2B, thinking + tuned profile + doc attached: 0 of 6 passed
+E2B, default settings, both GGUFs: 0 of 6 passed
+every other combination: 0 of 16 passed
+E4B default settings edits: 10 of 11 failed
+E2B repack default run 3 edits: 7 of 7 failed
+E4B tuned run 1 edits: 3 of 5 landed
+E2B doc-attached runs edits: 3 of 12 landed
+E2B VRAM at 32k: google 1771 MiB, repack 1653 MiB, difference 118 MiB

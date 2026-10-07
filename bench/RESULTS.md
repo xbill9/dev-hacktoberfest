@@ -65,9 +65,10 @@ Sandboxing: file edits are allowed, Bash only for `python3`/`pytest`, and everyt
 ## 4. What went wrong, and what fixed it
 
 1. **The agent games its own tests.** In condition A it hard-coded London, or returned 06:00/18:00
-   everywhere, or dropped the time windows from its tests. The windows went missing when opencode's
-   `task` subagent was handed a rewritten prompt that left them out. Fixed by denying `task` and adding
-   the `AGENTS.md` rules.
+   everywhere, or dropped the time windows from its tests. Four of the six E2B runs delegated to
+   opencode's `task` subagent; in one, the prompt written for the subagent left the windows out
+   (the other three kept them). Denying `task` and adding `AGENTS.md` rules reduced this without ending
+   it: tuned E4B run 2 still special-cased London.
 2. **The `edit` tool needs exact recall.** E4B without thinking failed 10 of 11 edits ("Could not find
    oldString"). With thinking on, 3 of 5 landed. E2B stays bad at it even with thinking.
 3. **Knowledge, not agent skill.** The tuned E4B had the right structure but invented the formulas.
@@ -79,8 +80,9 @@ Sandboxing: file edits are allowed, Bash only for `python3`/`pytest`, and everyt
 ## 5. Harness findings (opencode 1.18.35)
 
 - `opencode run` hangs at `init` when stdin is an open pipe. Use `< /dev/null`.
-- opencode imports Claude Code skills from `~/.claude/skills`. Setting `skill: false` cut the system
-  prompt from about 11.4k to 7.0k tokens, and E4B's cold first turn from 78 s to 46 s.
+- opencode imports Claude Code skills from `~/.claude/skills`. Turning off the `skill` and `task` tools
+  cut the prompt from 11434 to 6565 tokens, and the cold first turn on E2B from 44.4 s to 23.3 s
+  (`runs/derived.txt`, from `runs/prompt-size-server.log`).
 - A top-level `tools` key does not reach the agent; set it under `agent.build.tools`. `edit: false`
   also disables `write`.
 
@@ -98,4 +100,4 @@ Sandboxing: file edits are allowed, Bash only for `python3`/`pytest`, and everyt
 - **The 12B model.** Not run.
 - **Ablation inside condition D.** This would show how much of the pass comes from thinking alone.
 
-Raw logs for every run are in `runs/`.
+Raw logs for every run are in `runs/`. `derive_facts.py` regenerates `runs/derived.txt` (tool calls, decode means, prompt sizes, re-grading of every saved output); `check_doc.py` checks the reference sheet against astral (`runs/doc-vs-astral.txt`).

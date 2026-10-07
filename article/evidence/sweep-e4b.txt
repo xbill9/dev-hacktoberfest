@@ -1,0 +1,7 @@
+e4b ctx=8192 vram_idle=2853MiB vram_after=2857MiB prompt_tok=7194 prefill=153 t/s (46.9s) decode=34.6 t/s reply='There are 281 words in the text provided.'
+e4b ctx=16384 vram_idle=2989MiB vram_after=2993MiB prompt_tok=14567 prefill=140 t/s (103.7s) decode=32.1 t/s reply='There are 362 words in the text provided.'
+e4b ctx=32768 vram_idle=3261MiB vram_after=3265MiB prompt_tok=29313 prefill=121 t/s (241.9s) decode=27.8 t/s reply='There are 513 words in the text.'
+e4b ctx=65536 LOAD_FAIL 0.00.734.680 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to 99, abort 0.01.637.635 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 166.02 MiB on device 0: cudaMalloc failed: out of memory 
+e2b ctx=131072 load-only vram=2325MiB health={"status":"ok"}
+e4b ctx=131072 load-only vram=3MiB health=
+/bin/bash: line 9: kill: (84491) - No such process

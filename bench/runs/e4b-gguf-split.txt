@@ -1,0 +1,3 @@
+      1585.4 MB  per_layer_token_embd.weight  Q4_0    [10752, 262144]  <- LAZY, host-resident
+  lazy (never on GPU):        1.585 GB  (38% of file)
+  must be resident:           2.614 GB = 2.43 GiB

@@ -1,0 +1,6 @@
+gemma-4-e2b-google trial=rvb1 rc=0 wall=88s tool_events=3 files=daylight.py __pycache__ test_daylight.py  own_tests='2 passed in 0.01s' grader='GRADER ERROR NotImplementedError: Only specific test case implemented due to complexity of NOAA equation without external libraries.' vram=1771MiB
+gemma-4-e2b trial=rvb1 rc=0 wall=334s tool_events=10 files=daylight.py __pycache__ test_daylight.py  own_tests='2 passed in 0.00s' grader='GRADER 0/3' vram=1653MiB
+gemma-4-e2b trial=rvb2 rc=0 wall=170s tool_events=1 files=daylight.py __pycache__ test_daylight.py  own_tests='2 passed in 0.00s' grader='GRADER 0/3' vram=1653MiB
+gemma-4-e2b-google trial=rvb2 rc=0 wall=154s tool_events=1 files=daylight.py __pycache__ test_daylight.py  own_tests='1 failed in 0.01s' grader='GRADER 0/3' vram=1771MiB
+gemma-4-e2b-google trial=rvb3 rc=0 wall=138s tool_events=1 files=daylight.py __pycache__ test_daylight.py  own_tests='1 passed in 0.00s' grader='GRADER 0/3' vram=1771MiB
+gemma-4-e2b trial=rvb3 rc=0 wall=129s tool_events=13 files=daylight.py __pycache__ test_daylight.py  own_tests='1 passed in 0.00s' grader='GRADER 0/3' vram=1653MiB

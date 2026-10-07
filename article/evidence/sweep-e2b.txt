@@ -1,0 +1,5 @@
+e2b ctx=8192 vram_idle=1485MiB vram_after=1491MiB prompt_tok=7194 prefill=280 t/s (25.7s) decode=68.9 t/s reply='The text above contains 141 words.'
+e2b ctx=16384 vram_idle=1541MiB vram_after=1547MiB prompt_tok=14567 prefill=239 t/s (60.9s) decode=62.6 t/s reply='There are 467 words above.'
+e2b ctx=32768 vram_idle=1653MiB vram_after=1659MiB prompt_tok=29313 prefill=188 t/s (156.3s) decode=55.9 t/s reply='There are 150 words above.'
+e2b ctx=65536 vram_idle=1877MiB vram_after=1883MiB prompt_tok=58804 prefill=131 t/s (448.4s) decode=44.7 t/s reply='There are 200 words above.'
+curl: (52) Empty reply from server

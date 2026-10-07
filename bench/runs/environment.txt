@@ -1,0 +1,7 @@
+# Environment for all runs, recorded 2026-10-07
+opencode 1.18.35
+llama.cpp fc343a8
+claude-code 2.1.293 (Claude Code)
+NVIDIA GeForce GTX 1650 Ti with Max-Q Design, 4096 MiB, 7.5
+cpu: 12 threads, Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+ram: 15 GiB
