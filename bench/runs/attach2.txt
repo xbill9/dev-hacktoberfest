@@ -1,0 +1,4 @@
+gemma-4-e2b-attach2-1 rc=0 wall=313s tools={('write', 'completed'): 2, ('bash', 'completed'): 3, ('edit', 'error'): 4} own_tests='1 failed in 0.01s' grader='GRADER 1/3'
+gemma-4-e2b-attach2-2 rc=0 wall=137s tools={('write', 'completed'): 2, ('bash', 'completed'): 2, ('edit', 'completed'): 1} own_tests='2 passed in 0.01s' grader='GRADER 2/3'
+gemma-4-e2b-attach2-3 rc=0 wall=168s tools={('write', 'completed'): 2, ('bash', 'completed'): 3, ('edit', 'error'): 1, ('edit', 'completed'): 1} own_tests='1 failed in 0.03s' grader='GRADER ERROR AttributeError: module 'calendar' has no attribute 'dayofyear''
+gemma-4-e4b-attach2-1 rc=0 wall=316s tools={('write', 'completed'): 2, ('bash', 'completed'): 5, ('edit', 'completed'): 4, ('edit', 'error'): 2} own_tests='1 failed, 1 passed in 0.02s' grader='GRADER 3/3'

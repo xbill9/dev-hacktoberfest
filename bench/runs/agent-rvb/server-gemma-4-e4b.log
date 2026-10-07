@@ -1,0 +1,25 @@
+0.00.000.356 I srv  llama_server: initializing ...
+0.00.057.230 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.057.581 W srv  llama_server: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.059.605 I srv    load_model: loading model '/home/xbill/models/gemma-4-E4B-it-qat-q4_0-exact/gemma-4-E4B-it-q4_0-exact.gguf'
+0.00.811.510 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to 99, abort
+0.01.313.754 W load: control-looking token:    212 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.01.314.234 W load: control-looking token:     50 '<|tool_response>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.01.342.381 W load: special_eog_ids contains '<|tool_response>', removing '</s>' token from EOG list
+0.04.286.091 I cmn          init: llama threadpool init, n_threads = 6
+0.04.385.722 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 32768, kv_unified = 'false'
+0.04.398.090 I srv  llama_server: model loaded
+0.04.398.253 I srv  llama_server: listening on http://127.0.0.1:8080
+0.04.398.255 W srv  llama_server: notice: server default port will be changed to :9931 in a future release (ref: https://github.com/ggml-org/llama.cpp/pull/26508)
+0.06.702.269 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+0.06.702.321 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.10.180.703 I slot print_timing: id  0 | task 0 | prompt processing, n_tokens =    544, progress = 0.76, t =   3.48 s / 156.40 tokens per second
+0.10.574.628 I slot print_timing: id  0 | task 0 | prompt processing, n_tokens =    713, progress = 0.99, t =   3.87 s / 184.13 tokens per second
+0.11.657.518 I slot print_timing: id  0 | task 0 | prompt eval time =    4761.04 ms /   717 tokens (    6.64 ms per token,   150.60 tokens per second)
+0.11.657.521 I slot print_timing: id  0 | task 0 |        eval time =     194.12 ms /     8 tokens (   27.73 ms per token,    36.06 tokens per second)
+0.11.657.521 I slot print_timing: id  0 | task 0 |       total time =    4955.17 ms /   725 tokens
+0.11.657.602 I slot print_timing: id  0 | task 0 |    graphs reused =          7
+0.11.659.666 I slot      release: id  0 | task 0 | stop processing: n_tokens = 724, truncated = 0
+0.11.659.705 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = 95210928445
+0.11.698.775 I slot launch_slot_: id  0 | task 3 | processing task, is_child = 0
+0.21.563.732 I slot print_timing: id  0 | task 3 | prompt processing, n_tokens =   2048, progress = 0.18, t =   9.86 s / 207.60 tokens per second
