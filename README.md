@@ -2,7 +2,10 @@
 
 Entry for the [Hacktoberfest Open-Source AI Challenge, Week 1: Touch Grass](https://dev.to/challenges/hacktoberfest-week1-2026-10-05).
 
-**Article:** [Touch Grass, Pack Your Docs: An Offline Coding Agent on a 4 GB Laptop GPU](https://dev.to/xbill/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-4lf1)
+**Article:** [Touch Grass, Pack Your Docs: An Offline Coding Agent on a 4 GB Laptop GPU](https://dev.to/gde/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-4lf1)
+(also on [Medium](https://xbill999.medium.com/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-2b317a1cbdf3)
+and [Substack](https://xbill9.substack.com/p/touch-grass-pack-your-docs-an-offline);
+announced on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:share:7513997048048705536/))
 
 **Touch grass, but pack your docs.** This repo takes a coding agent outdoors, away from the desk and
 off the network. Everything runs on a laptop: Gemma 4 E4B on a GTX 1650 Ti (4 GB), served by
