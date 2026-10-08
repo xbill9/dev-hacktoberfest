@@ -5,5 +5,5 @@ devto-aws  = SKIP
 medium     = https://xbill999.medium.com/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-2b317a1cbdf3
 substack   = https://xbill9.substack.com/p/touch-grass-pack-your-docs-an-offline
 builder    = SKIP
-linkedin   = SKIP
+linkedin   = https://www.linkedin.com/feed/update/urn:li:share:7513997048048705536/
 repo       = https://github.com/xbill9/dev-hacktoberfest
