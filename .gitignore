@@ -7,3 +7,4 @@ __pycache__/
 # model weights live outside the repo (see README)
 *.gguf
 *.safetensors
+article/medium/*-embed.html

@@ -1,0 +1,13 @@
+# Destination URLs for the LinkedIn, Slack and Google Chat posts. PENDING fails
+# the run on purpose: a post whose links do not resolve is worse than no post.
+#
+# Drafts, for editing rather than sharing (no public URL until published):
+#   Medium    https://medium.com/p/2b317a1cbdf3/edit
+#   Substack  https://xbill9.substack.com/publish/post/219442622
+devto-gde  = https://dev.to/gde/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-4lf1
+devto-aws  = SKIP
+medium     = PENDING
+substack   = PENDING
+builder    = SKIP
+linkedin   = SKIP
+repo       = https://github.com/xbill9/dev-hacktoberfest
