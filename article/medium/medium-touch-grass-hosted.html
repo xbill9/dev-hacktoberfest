@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Touch Grass, Pack Your Docs: An Offline Coding Agent on a 4 GB Laptop GPU</title>
+  <meta name="description" content="Gemma 4 E4B, llama.cpp and opencode on a GTX 1650 Ti with the network off. Thinking, a tuned agent profile and a reference doc attached to the request take the same task from zero passes to four of four." />
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+    body{font-family:-apple-system,'Segoe UI',Roboto,'Liberation Sans',Arial,sans-serif;
+         font-size:18px;line-height:1.58;max-width:42em;color:#242424;}
+    h1,h2,h3,h4{font-weight:700;line-height:1.25;margin-top:1.8em;}
+    h4{font-size:1.25em;}
+    img{max-width:100%;height:auto;display:block;margin:1.6em 0;}
+    pre{background:#f7f7f7;border:1px solid #e6e6e6;border-radius:4px;
+        padding:12px 14px;overflow-x:auto;font-size:14px;line-height:1.45;}
+    code{font-family:'Liberation Mono',Menlo,Consolas,monospace;}
+    :not(pre)>code{background:#f2f2f2;padding:1px 5px;border-radius:3px;font-size:.9em;}
+    blockquote{border-left:3px solid #ddd;margin-left:0;padding-left:1em;color:#555;}
+    hr{border:0;border-top:1px solid #e6e6e6;margin:2.4em 0;}
+  </style>
+</head>
+<body>
+<p><em>Built for the <a
+href="https://dev.to/challenges/hacktoberfest-week1-2026-10-05">Hacktoberfest
+Open-Source AI Challenge Week 1: Touch Grass</a> on dev.to.</em></p>
+<figure><img src="https://raw.githubusercontent.com/xbill9/dev-hacktoberfest/main/article/medium/img/devto-cover.53468eac.jpg" alt="Touch Grass, Pack Your Docs: An Offline Coding Agent on a 4 GB Laptop GPU" /></figure>
+<p>This article provides a step-by-step build of an offline coding agent
+on a laptop with a 4 GB GPU, from the first context sweep to the setup
+that passes. Gemma 4 runs locally under llama.cpp, opencode drives it,
+and an independent grader scores every run.</p>
+<p><a
+href="https://github.com/xbill9/dev-hacktoberfest">https://github.com/xbill9/dev-hacktoberfest</a></p>
+<p><strong>Gemma 4 E4B on a GTX 1650 Ti writes working code offline when
+it has three things: thinking on, an agent profile that keeps the
+requirements in front of it, and the reference material attached to the
+request. With all three it passed 4 of 4 runs in 3 to 6.5 minutes. Every
+other combination tested passed 0 of 16.</strong></p>
+<hr />
+<h4 id="what-i-built">What I Built</h4>
+<p>A coding agent that goes outside with you. The laptop leaves the
+desk, the network stays behind, and the agent still works: model,
+server, agent and documentation all live on the machine.</p>
+<p>It is for anyone who wants to take a laptop to a park bench, a
+campsite or a train with no signal and keep building. The rule it is
+built around is the one hikers already follow: you carry what you need.
+Offline, the model cannot look anything up, so the documents you pack
+decide whether the agent produces working code.</p>
+<p>The whole stack is open: Google's open-weight Gemma 4, an exact Q4_0
+rebuild of its QAT checkpoint published on Hugging Face, llama.cpp for
+inference and opencode as the agent.</p>
+<hr />
+<h4 id="demo">Demo</h4>
+<p>One command runs the agent on a task with a reference document
+attached. The task asks for NOAA sunrise and sunset times plus pytest
+tests, then for the tests to pass:</p>
+<pre class="bash"><code>./touchgrass-agent.sh run &quot;$(cat bench/agent_task.txt)&quot; docs/NOAA_SOLAR.md</code></pre>
+<p>The benchmark runner does the same thing headless and then checks the
+result two ways, with the agent's own tests and with a separate grader
+the agent never sees:</p>
+<pre class="plaintext"><code>gemma-4-e4b-attach-1 rc=0 wall=178s tools={(&#39;write&#39;, &#39;completed&#39;): 2, (&#39;bash&#39;, &#39;completed&#39;): 1} own_tests=&#39;1 passed in 0.00s&#39; grader=&#39;GRADER 3/3&#39;</code></pre>
+<p>Three tool calls: write the module, write the tests, run pytest. The
+grader checks London, New York and Sydney against the astral library and
+accepts each time within 10 minutes. The output of every run is in <a
+href="https://github.com/xbill9/dev-hacktoberfest/tree/main/bench/runs"><code>bench/runs/</code></a>.</p>
+<hr />
+<h4 id="code">Code</h4>
+<p>Everything is in <a
+href="https://github.com/xbill9/dev-hacktoberfest">xbill9/dev-hacktoberfest</a>:
+the wrapper script, the benchmark runners, the grader, and the raw event
+stream of every opencode run next to the code the agent wrote, in <a
+href="https://github.com/xbill9/dev-hacktoberfest/tree/main/bench/runs"><code>bench/runs/</code></a>.
+The first passing run is <a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/runs/agent-attach/gemma-4-e4b-attach-1.jsonl"><code>agent-attach/gemma-4-e4b-attach-1.jsonl</code></a>.</p>
+<hr />
+<h4 id="how-i-built-it">How I Built It</h4>
+<h4 id="at-this-point-you-should-have">At This Point You Should
+Have…</h4>
+<ul>
+<li>A machine with an NVIDIA GPU. This one is a GTX 1650 Ti Max-Q with
+4096 MiB, an Intel Core i7-10750H and 15 GiB of RAM.</li>
+<li>llama.cpp built with CUDA. These runs used commit
+<code>fc343a8</code>.</li>
+<li>opencode 1.18.35, run once while still online, because it downloads
+its provider package on first use.</li>
+<li>The model: <a
+href="https://huggingface.co/xbill9/gemma-4-E4B-it-qat-q4_0-exact-gguf">xbill9/gemma-4-E4B-it-qat-q4_0-exact-gguf</a>.</li>
+</ul>
+<hr />
+<h4 id="step-1--fit-the-model-and-the-context-on-4-gb">Step 1 — Fit the
+Model and the Context on 4 GB</h4>
+<p>Gemma 4 E4B keeps its 1.59 GB per-layer embedding table in host
+memory through mmap, so only 2.43 GiB of the GGUF has to sit on the
+card. The rest of the budget goes to context. <code>ctx_sweep.sh</code>
+starts the server at each context size and fills 90% of the window with
+a real prompt:</p>
+<pre class="bash"><code>bench/ctx_sweep.sh e4b ~/models/gemma-4-E4B-it-qat-q4_0-exact/gemma-4-E4B-it-q4_0-exact.gguf 8192 16384 32768 65536
+e4b ctx=8192 vram_idle=2853MiB vram_after=2857MiB prompt_tok=7194 prefill=153 t/s (46.9s) decode=34.6 t/s
+e4b ctx=16384 vram_idle=2989MiB vram_after=2993MiB prompt_tok=14567 prefill=140 t/s (103.7s) decode=32.1 t/s
+e4b ctx=32768 vram_idle=3261MiB vram_after=3265MiB prompt_tok=29313 prefill=121 t/s (241.9s) decode=27.8 t/s
+e4b ctx=65536 LOAD_FAIL ... cudaMalloc failed: out of memory</code></pre>
+<p><img src="https://raw.githubusercontent.com/xbill9/dev-hacktoberfest/main/article/medium/img/medium-touch-grass-table-1.png"
+alt="Table: Context, E2B VRAM, E2B decode, E4B VRAM, E4B decode" /></p>
+<p>Sliding-window attention keeps the KV cache small, so E4B runs at 32k
+with room to spare and stops at 64k. Prompt processing speed sets the
+pace: a cold 29k-token prompt takes four minutes on E4B. Everything
+below runs at 32k.</p>
+<hr />
+<h4 id="step-2--give-the-agent-one-task-and-an-independent-grader">Step
+2 — Give the Agent One Task and an Independent Grader</h4>
+<p>The task is the same for every run, in <a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/agent_task.txt"><code>bench/agent_task.txt</code></a>:
+write <code>daylight.py</code> with
+<code>sun_times(lat, lon, date)</code> using the NOAA sunrise equation
+and the standard library only, write pytest tests that put London's
+sunrise on 2026-06-21 between 03:35 and 03:55 UTC and sunset between
+20:10 and 20:30, then run the tests until they pass.</p>
+<p>An agent's own tests can be made to pass by changing the tests, so a
+run counts only when <a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/grade.py"><code>grade.py</code></a>
+agrees. It imports the agent's function and checks three cities on three
+dates against reference times from astral, within 10 minutes each.</p>
+<p>The agent can edit files and run <code>python3</code> or
+<code>pytest</code>, and every other shell command is denied:</p>
+<pre class="json"><code>&quot;permission&quot;: {
+  &quot;edit&quot;: &quot;allow&quot;,
+  &quot;webfetch&quot;: &quot;deny&quot;,
+  &quot;bash&quot;: { &quot;*&quot;: &quot;deny&quot;, &quot;python3 *&quot;: &quot;allow&quot;, &quot;pytest *&quot;: &quot;allow&quot; }
+}</code></pre>
+<hr />
+<h4 id="step-3--run-the-agent-with-default-settings">Step 3 — Run the
+Agent with Default Settings</h4>
+<p>Default settings mean the server as a chat demo runs it, with
+thinking off, and opencode as installed. Both E2B GGUFs ran three times
+each and E4B once:</p>
+<pre class="plaintext"><code>gemma-4-e2b-google-rvb1 ... own_tests=&#39;2 passed in 0.01s&#39; grader=&#39;GRADER ERROR NotImplementedError: Only specific test case implemented due to complexity of NOAA equation without external libraries.&#39;
+gemma-4-e2b-rvb1 ... own_tests=&#39;2 passed in 0.00s&#39; grader=&#39;GRADER 0/3&#39;</code></pre>
+<p>Seven runs, zero passes, and in most of them the agent's own tests
+passed. The code shows how. One run hard-coded London and raised an
+error for every other input. Another returned 06:00 and 18:00 for every
+place on Earth, under tests that only checked the results were dates in
+2026.</p>
+<p>In four of the six E2B runs the model handed the whole job to
+opencode's <code>task</code> subagent, which works from a prompt the
+model writes for it. In the 06:00 run that prompt left out the
+acceptance windows, and the subagent never saw them.</p>
+<p>The other failure is the <code>edit</code> tool, which replaces a
+string only when the model quotes the existing text exactly. E4B without
+thinking failed 10 of its 11 edits with
+<code>Could not find oldString in the file</code>, and one E2B run
+failed 7 of 7.</p>
+<hr />
+<h4 id="step-4--tune-the-agent">Step 4 — Tune the Agent</h4>
+<p>Three changes, all on the E4B server at 32k:</p>
+<ol type="1">
+<li><strong>Thinking on</strong> (<code>--reasoning on</code>).</li>
+<li><strong>The <code>task</code> subagent off</strong>, so the
+requirements stay in the conversation that does the work.</li>
+<li><strong>An <a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/AGENTS.md"><code>AGENTS.md</code></a></strong>
+in the work directory: put the acceptance criteria in the tests exactly
+as given, never loosen a test to make it pass, never hard-code expected
+outputs.</li>
+</ol>
+<pre class="json"><code>{
+  &quot;permission&quot;: { &quot;task&quot;: &quot;deny&quot; },
+  &quot;agent&quot;: { &quot;build&quot;: { &quot;tools&quot;: { &quot;skill&quot;: false, &quot;task&quot;: false } } }
+}</code></pre>
+<p>With thinking on, 3 of 5 edits landed in the first tuned run. The
+rules did not hold every time: the second run still special-cased London
+(<code>if lat == 51.5 and lon == -0.13 ...</code>). The grader passed
+neither run, and the first run's code shows the deeper problem:</p>
+<pre class="python"><code># Solar declination (delta)
+delta = 23.45 * math.asin(math.sin(L) * math.cos(math.pi / 180.0))</code></pre>
+<p>The structure is right: declination, hour angle, solar noon, a
+longitude correction. The formulas are invented. The model does not
+reproduce the NOAA equations from memory, and offline there is nowhere
+to look them up.</p>
+<hr />
+<h4 id="step-5--pack-the-docs">Step 5 — Pack the Docs</h4>
+<p><a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/docs/NOAA_SOLAR.md"><code>docs/NOAA_SOLAR.md</code></a>
+is one page of equations with no code: fractional year, equation of
+time, declination, hour angle and the sunrise and sunset minutes.
+Implemented directly, it matches astral within 2 minutes for all three
+cities.</p>
+<p>Placed in the repository with a line in <code>AGENTS.md</code>
+pointing to it, the document went unread. The run's one
+<code>read</code> call opened its own <code>daylight.py</code>, and the
+grader failed it.</p>
+<p>Attached to the request with <code>-f</code>, it is in the context
+from the first turn:</p>
+<pre class="bash"><code>opencode run -m llamacpp/gemma-4-e4b &quot;$(cat agent_task.txt)&quot; -f docs/NOAA_SOLAR.md
+gemma-4-e4b-attach-1 rc=0 wall=178s  ... own_tests=&#39;1 passed in 0.00s&#39; grader=&#39;GRADER 3/3&#39;
+gemma-4-e4b-attach-2 rc=0 wall=393s  ... own_tests=&#39;1 passed in 0.00s&#39; grader=&#39;GRADER 3/3&#39;
+gemma-4-e4b-attach-3 rc=0 wall=218s  ... own_tests=&#39;1 passed in 0.00s&#39; grader=&#39;GRADER 3/3&#39;
+gemma-4-e4b-attach2-1 rc=0 wall=316s ... own_tests=&#39;1 failed, 1 passed in 0.02s&#39; grader=&#39;GRADER 3/3&#39;</code></pre>
+<p>Four of four. All four kept the acceptance windows in their tests and
+none special-cased London. The fourth run also wrote an extra test that
+expects a sunset at 80°N on the solstice, when the sun never sets there;
+its code correctly returns none, so that test fails and the grader still
+passes the code. The passing runs were also faster than any failing E4B
+run, because the model stopped cycling through edits and test
+failures.</p>
+<hr />
+<h4
+id="step-6--the-smaller-e2b-and-the-repack-against-googles-gguf">Step 6
+— The Smaller E2B, and the Repack Against Google's GGUF</h4>
+<p>The same E2B task ran on Google's QAT GGUF and on the exact Q4_0
+repack, three runs each, with identical server flags:</p>
+<p><img src="https://raw.githubusercontent.com/xbill9/dev-hacktoberfest/main/article/medium/img/medium-touch-grass-table-2.png"
+alt="Table: E2B, default settings, Google QAT GGUF, Exact Q4_0 repack" /></p>
+<p>The repack uses 118 MiB less memory and decodes 6% faster. E2B
+decodes at twice E4B's speed, and with the reference attached it still
+passed none of six runs: one got two cities of three, one got one, and
+four broke on syntax or on a function that does not exist
+(<code>calendar.dayofyear</code>). Across those six runs E2B landed 3 of
+its 12 edits, so its first bug is usually its last.</p>
+<hr />
+<h4 id="mag_right-tip-opencode-run-waits-on-standard-input">🔎 Tip:
+<code>opencode run</code> Waits on Standard Input</h4>
+<p>Started from a script whose standard input is an open pipe,
+<code>opencode run</code> stops after <code>init</code> and never sends
+a request. Give it <code>&lt; /dev/null</code>.</p>
+<hr />
+<h4 id="mag_right-tip-opencode-loads-your-claude-code-skills">🔎 Tip:
+opencode Loads Your Claude Code Skills</h4>
+<p>opencode reads skills from <code>~/.claude/skills</code> and lists
+them in its system prompt. Measured on a cold server with the request
+<code>Reply with exactly: pong</code>:</p>
+<pre class="plaintext"><code>default profile, Claude skills imported: 11434 tokens, cold prefill 44.4 s on E2B
+tuned profile, skill and task tools off: 6565 tokens, cold prefill 23.3 s on E2B</code></pre>
+<p>On a small GPU that is half the wait on every new session. Set tools
+per agent, under <code>agent.build.tools</code>: a top-level
+<code>tools</code> key does not reach the agent, and
+<code>edit: false</code> turns off <code>write</code> as well.</p>
+<hr />
+<h4 id="mag_right-tip-write-docs-a-small-model-can-paste">🔎 Tip: Write
+Docs a Small Model Can Paste</h4>
+<p>A small model copies a reference literally. A formula written across
+three lines without enclosing parentheses became
+<code>IndentationError</code> in all three E2B runs; E4B rewrote the
+same lines as valid Python. Wrap multi-line expressions in parentheses
+and give units at every step.</p>
+<hr />
+<h4 id="compare-and-contrast">Compare and Contrast</h4>
+<p><img src="https://raw.githubusercontent.com/xbill9/dev-hacktoberfest/main/article/medium/img/medium-touch-grass-table-3.png"
+alt="Table: Setup, Model, Grader passes, Wall time" /></p>
+<hr />
+<h4 id="so-which-one">So, Which One?</h4>
+<p>E4B, the exact Q4_0 repack, at 32k with thinking on, opencode with
+the <code>task</code> and <code>skill</code> tools off, an
+<code>AGENTS.md</code> of rules, and the reference material attached to
+the request. <a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/touchgrass-agent.sh"><code>touchgrass-agent.sh</code></a>
+wraps it: <code>serve</code> starts llama-server, <code>run</code> takes
+a task and any number of documents to attach, and <code>tui</code> opens
+opencode interactively.</p>
+<p>Keep the server running between tasks: llama-server reuses the cached
+prompt prefix, so only the first request of a session pays the cold
+prefill.</p>
+<hr />
+<h4 id="why-does-open-innovation-matter">Why Does Open Innovation
+Matter?</h4>
+<p>This build exists only because every layer is open. A closed API
+needs a network, and the point of the project is to work where there is
+none.</p>
+<p>Open weights made the model small enough to fit. Google published the
+QAT checkpoint, and an exact Q4_0 rebuild of it runs E4B at 32k on a 4
+GB laptop card, with the per-layer embeddings left in system memory.
+Open inference let me read the server's logs to the token, which is
+where every number in this article comes from. An open agent let me see
+what it sends, so its 11434-token prompt became 6565 and the subagent
+that dropped requirements could be switched off.</p>
+<p>Each failure in Steps 3 to 5 was diagnosed from a log, a config file
+or a source line. With a closed stack, each would have been a support
+ticket.</p>
+<hr />
+<h4 id="summary">Summary</h4>
+<p>The goal of this article was to build a coding agent that works
+offline on a 4 GB laptop GPU. The key to the solution was attaching the
+reference material to the request, on top of thinking and an agent
+profile that keeps the requirements in view. The agent results were:</p>
+<ul>
+<li>🟢 E4B with thinking, the tuned profile and the doc attached passed
+4 of 4 runs, in 178 to 393 seconds.</li>
+<li>🟢 E4B fits a 32k context in 3261 MiB of a 4096 MiB card.</li>
+<li>🟢 The exact E2B repack used 118 MiB less VRAM and decoded 6% faster
+than Google's GGUF.</li>
+<li>❌ Every other combination passed 0 of 16, including E2B with the
+doc attached.</li>
+<li>❌ Without the formulas in context, E4B invents them.</li>
+<li>⚠️ A document left in the repository went unread; attach it.</li>
+<li>⚠️ <code>AGENTS.md</code> rules reduce test gaming without ending
+it: one of two tuned runs still special-cased London.</li>
+<li>⚠️ opencode imports Claude Code skills into its prompt; turning off
+the <code>skill</code> tool cut 11434 tokens to 6565.</li>
+</ul>
+<p>Scope: one laptop (GTX 1650 Ti Max-Q, 4096 MiB, i7-10750H, 15 GiB
+RAM), one task, llama.cpp <code>fc343a8</code> and opencode 1.18.35, 20
+graded runs. Most conditions ran one to three times, so the counts show
+which setups work at all and are too small to rank close ones. Thinking,
+the profile and <code>AGENTS.md</code> changed together in Step 4 and
+were not tested separately, and the first tuned run still had the
+<code>skill</code> tool on. Default-settings runs had thinking off; all
+others had it on. The three <code>attach</code> runs per model used <a
+href="https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/docs/NOAA_SOLAR.v1.md"><code>NOAA_SOLAR.v1.md</code></a>,
+which has no parentheses around the multi-line declination formula; the
+fourth E4B run and the three <code>attach2</code> E2B runs used the
+parenthesised version linked in Step 5. All three E2B syntax failures
+came from <code>NOAA_SOLAR.v1.md</code>. Gemma 4 12B and Claude Code
+against the same server were not run.</p>
+<p>The strategy for building an offline coding agent with Gemma 4 on a 4
+GB laptop GPU was validated with an incremental step by step
+approach.</p>
+<hr />
+<h4 id="references">References</h4>
+<ul>
+<li><a
+href="https://github.com/xbill9/dev-hacktoberfest">dev-hacktoberfest |
+GitHub</a></li>
+<li><a
+href="https://huggingface.co/xbill9/gemma-4-E4B-it-qat-q4_0-exact-gguf">gemma-4-E4B-it-qat-q4_0-exact-gguf
+| Hugging Face</a></li>
+<li><a
+href="https://huggingface.co/xbill9/gemma-4-E2B-it-qat-q4_0-exact-gguf">gemma-4-E2B-it-qat-q4_0-exact-gguf
+| Hugging Face</a></li>
+<li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp |
+GitHub</a></li>
+<li><a href="https://opencode.ai">opencode</a></li>
+<li><a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF">General
+Solar Position Calculations | NOAA Global Monitoring Laboratory</a></li>
+<li><a href="https://pypi.org/project/astral/">astral | PyPI</a></li>
+<li><a
+href="https://dev.to/challenges/hacktoberfest-week1-2026-10-05">Hacktoberfest
+Open-Source AI Challenge Week 1: Touch Grass | dev.to</a></li>
+</ul>
+</body>
+</html>

@@ -6,7 +6,7 @@ tags: devchallenge, hf26challenge, gemma, opencode
 cover_image: https://raw.githubusercontent.com/xbill9/dev-hacktoberfest/main/article/devto-cover.53468eac.jpg
 ---
 
-*This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 1: Touch Grass](https://dev.to/challenges/hacktoberfest-week1-2026-10-05)*
+*Built for the [Hacktoberfest Open-Source AI Challenge Week 1: Touch Grass](https://dev.to/challenges/hacktoberfest-week1-2026-10-05) on dev.to.*
 
 This article provides a step-by-step build of an offline coding agent on a laptop with a 4 GB GPU, from the first context sweep to the setup that passes. Gemma 4 runs locally under llama.cpp, opencode drives it, and an independent grader scores every run.
 
@@ -46,7 +46,7 @@ Three tool calls: write the module, write the tests, run pytest. The grader chec
 
 ## Code
 
-{% github xbill9/dev-hacktoberfest %}
+Everything is in [xbill9/dev-hacktoberfest](https://github.com/xbill9/dev-hacktoberfest): the wrapper script, the benchmark runners, the grader, and the raw event stream of every opencode run next to the code the agent wrote, in [`bench/runs/`](https://github.com/xbill9/dev-hacktoberfest/tree/main/bench/runs). The first passing run is [`agent-attach/gemma-4-e4b-attach-1.jsonl`](https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/runs/agent-attach/gemma-4-e4b-attach-1.jsonl).
 
 ---
 
@@ -238,18 +238,6 @@ This build exists only because every layer is open. A closed API needs a network
 Open weights made the model small enough to fit. Google published the QAT checkpoint, and an exact Q4_0 rebuild of it runs E4B at 32k on a 4 GB laptop card, with the per-layer embeddings left in system memory. Open inference let me read the server's logs to the token, which is where every number in this article comes from. An open agent let me see what it sends, so its 11434-token prompt became 6565 and the subagent that dropped requirements could be switched off.
 
 Each failure in Steps 3 to 5 was diagnosed from a log, a config file or a source line. With a closed stack, each would have been a support ticket.
-
----
-
-## My Agent Session
-
-The agent sessions are the experiment. Every opencode run is saved as its raw event stream, with each tool call, its input and its result, next to the code the agent wrote: [`bench/runs/`](https://github.com/xbill9/dev-hacktoberfest/tree/main/bench/runs). The first passing run is [`agent-attach/gemma-4-e4b-attach-1.jsonl`](https://github.com/xbill9/dev-hacktoberfest/blob/main/bench/runs/agent-attach/gemma-4-e4b-attach-1.jsonl).
-
----
-
-## Prize Categories
-
-**Best Use of Gemma**: Gemma 4 E2B and E4B run locally, from exact Q4_0 rebuilds of Google's QAT checkpoints.
 
 ---
 
