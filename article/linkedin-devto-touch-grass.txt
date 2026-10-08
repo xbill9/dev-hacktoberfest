@@ -1,0 +1,15 @@
+Touch Grass, Pack Your Docs: An Offline Coding Agent on a 4 GB Laptop GPU
+
+Gemma 4 E4B, llama.cpp and opencode on a GTX 1650 Ti with the network off. Thinking, a tuned agent profile and a reference doc attached to the request take the same task from zero passes to four of four.
+
+What is in it:
+
+- 🟢 E4B with thinking, the tuned profile and the doc attached passed 4 of 4 runs, in 178 to 393 seconds.
+- 🟢 E4B fits a 32k context in 3261 MiB of a 4096 MiB card.
+- 🟢 The exact E2B repack used 118 MiB less VRAM and decoded 6% faster than Google's GGUF.
+- ❌ Every other combination passed 0 of 16, including E2B with the doc attached.
+
+dev.to (Google Developer Experts): https://dev.to/gde/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-4lf1
+Medium: https://xbill999.medium.com/touch-grass-pack-your-docs-an-offline-coding-agent-on-a-4-gb-laptop-gpu-2b317a1cbdf3
+Substack: https://xbill9.substack.com/p/touch-grass-pack-your-docs-an-offline
+Source: https://github.com/xbill9/dev-hacktoberfest
